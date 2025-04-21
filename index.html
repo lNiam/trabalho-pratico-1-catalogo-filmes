@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Filmes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 id="titulo-pagina">Catálogo de Filmes</h1>
+    <div class="search" id="search-container">
+      <input type="text" id="searchInput" placeholder="Buscar filmes...">
+      <button onclick="buscarFilme()">Pesquisar</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="carrossel-destaques"></div>
+
+    <section id="home-view" class="view">
+      <div class="movie-list" id="movieList"></div>
+    </section>
+
+    <section id="detail-view" class="view" style="display: none;">
+      <div id="movieDetails"></div>
+      <button onclick="voltarParaHome()">Voltar</button>
+    </section>
+
+    <section id="sobre-autor">
+      <h2>Sobre o Autor</h2>
+      <p>Lucca Einstein Haddad Barros - Ciência da Computação</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
