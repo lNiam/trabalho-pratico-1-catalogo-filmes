@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Filme</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    body {
+      background-color: var(--preto-apple);
+      color: var(--branco-apple);
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .detalhe-imagem {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 12px;
+      margin: 20px 0;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      border: 2px solid var(--destaque-apple);
+    }
+
+    .detalhe-descricao {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      margin: 15px 0;
+    }
+
+    .detalhe-texto {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .galeria {
+      margin-top: 40px;
+    }
+
+    .galeria h2 {
+      color: var(--destaque-apple);
+      margin-bottom: 20px;
+    }
+
+    .galeria-imagens {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .galeria-img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--destaque-apple);
+      transition: transform 0.3s;
+    }
+
+    .galeria-img:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-voltar {
+      display: inline-block;
+      background-color: var(--destaque-apple);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+
+    .btn-voltar:hover {
+      background-color: #ff1e26;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="btn-voltar">Voltar para Home</a>
+  <div id="filme-detalhes"></div>
+
+  <script src="app.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const filmeId = urlParams.get('id');
+      carregarDetalhesFilme(filmeId);
+    });
+  </script>
+</body>
+</html>
