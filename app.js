@@ -61,13 +61,40 @@ const filmes = [
   }
 ];
 
+let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+function toggleFavorito(id, event) {
+  event.stopPropagation();
+  const index = favoritos.indexOf(id);
+  
+  if (index === -1) {
+    favoritos.push(id);
+  } else {
+    favoritos.splice(index, 1);
+  }
+  
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+  atualizarIconesFavorito(id);
+}
+
+function atualizarIconesFavorito(id) {
+  document.querySelectorAll(`.favorito-icon[data-id="${id}"]`).forEach(icone => {
+    icone.innerHTML = favoritos.includes(id) ? '❤️' : '🤍';
+  });
+}
+
 function renderizarFilmes(lista = filmes) {
   const movieList = document.getElementById('movieList');
   if (movieList) {
     movieList.innerHTML = lista.map(filme => `
-      <div class="movie-card" onclick="location.href='detalhes.html?id=${filme.id}'">
-        <img src="${filme.imagem}" alt="${filme.titulo}">
-        <div class="movie-info">
+      <div class="movie-card">
+        <div class="card-top" onclick="location.href='detalhes.html?id=${filme.id}'">
+          <img src="${filme.imagem}" alt="${filme.titulo}">
+          <span class="favorito-icon" data-id="${filme.id}" onclick="toggleFavorito(${filme.id}, event)">
+            ${favoritos.includes(filme.id) ? '❤️' : '🤍'}
+          </span>
+        </div>
+        <div class="movie-info" onclick="location.href='detalhes.html?id=${filme.id}'">
           <h3>${filme.titulo}</h3>
           <p>${filme.descricao}</p>
         </div>
@@ -85,9 +112,14 @@ function criarCarrossel() {
       <h2 class="titulo-secao">Filmes em Destaque</h2>
       <div class="carrossel-container">
         ${destaques.map(filme => `
-          <div class="destaque-item" onclick="location.href='detalhes.html?id=${filme.id}'">
-            <img src="${filme.imagem}" alt="${filme.titulo}">
-            <div class="destaque-info">
+          <div class="destaque-item">
+            <div class="card-top" onclick="location.href='detalhes.html?id=${filme.id}'">
+              <img src="${filme.imagem}" alt="${filme.titulo}">
+              <span class="favorito-icon" data-id="${filme.id}" onclick="toggleFavorito(${filme.id}, event)">
+                ${favoritos.includes(filme.id) ? '❤️' : '🤍'}
+              </span>
+            </div>
+            <div class="destaque-info" onclick="location.href='detalhes.html?id=${filme.id}'">
               <h3>${filme.titulo}</h3>
               <p>${filme.descricao}</p>
             </div>
@@ -113,8 +145,13 @@ function carregarDetalhesFilme(id) {
   
   if (filme && container) {
     container.innerHTML = `
+      <div class="detalhe-header">
+        <h1>${filme.titulo}</h1>
+        <span class="favorito-icon" data-id="${filme.id}" onclick="toggleFavorito(${filme.id}, event)">
+          ${favoritos.includes(filme.id) ? '❤️' : '🤍'}
+        </span>
+      </div>
       <img src="${filme.imagem}" alt="${filme.titulo}" class="detalhe-imagem">
-      <h1>${filme.titulo}</h1>
       <p class="detalhe-descricao">${filme.descricao}</p>
       <div class="detalhe-texto">${filme.detalhes.replace(/\n/g, '<br>')}</div>
       
@@ -139,3 +176,6 @@ if (document.getElementById('movieList')) {
     if (e.key === 'Enter') buscarFilme();
   });
 }
+
+window.buscarFilme = buscarFilme;
+window.toggleFavorito = toggleFavorito;
