@@ -6,7 +6,7 @@
   <title>Detalhes do Filme</title>
   <link rel="stylesheet" href="style.css">
   <style>
-
+    /* ESTILOS ESPECÍFICOS */
     body {
       background-color: var(--preto-apple);
       color: var(--branco-apple);
@@ -23,6 +23,13 @@
       margin: 20px 0;
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
       border: 2px solid var(--destaque-apple);
+    }
+
+    .detalhe-cabecalho {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
     .detalhe-descricao {
@@ -82,6 +89,17 @@
       background-color: #ff1e26;
       transform: translateY(-2px);
     }
+
+    /* ÍCONE FAVORITO */
+    .favorito-icon {
+      cursor: pointer;
+      font-size: 1.8rem;
+      transition: transform 0.3s;
+    }
+
+    .favorito-icon:hover {
+      transform: scale(1.2);
+    }
   </style>
 </head>
 <body>
@@ -90,7 +108,6 @@
 
   <script src="app.js"></script>
   <script>
-
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const filmeId = urlParams.get('id');
